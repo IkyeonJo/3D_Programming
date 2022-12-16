@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>gltf 3d model loading using Three.js</title>
+</head>
+<body>
+  <canvas id="canvas" width="300" height="300"></canvas>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.141.0/build/three.module.js",
+        "GLTFLoader" : "https://unpkg.com/three@0.141.0/examples/jsm/loaders/GLTFLoader.js"
+      }
+    }
+  </script>
+  <script type="module">
+    import { GLTFLoader } from 'GLTFLoader';
+    import * as THREE from 'three';
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color('white');
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas: document.querySelector('#canvas'),
+      antialias : true,
+    });
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.outputEncoding = THREE.sRGBEncoding;
+
+    const camera = new THREE.PerspectiveCamera(
+      45,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    scene.add(camera);
+    camera.position.set(0, 0, 5);
+
+    const light = new THREE.DirectionalLight(0xffff00, 10);
+    scene.add(light);
+
+    const loader = new GLTFLoader();
+    loader.load('./shiba_3d_model/scene.gltf', function(gltf){
+      scene.add(gltf.scene);
+      function animate() {
+        gltf.scene.rotation.y -= 0.01 ;
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      }
+      animate();
+    });
+  </script>
+</body>
+</html>

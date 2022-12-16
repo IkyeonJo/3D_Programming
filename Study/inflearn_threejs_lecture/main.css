@@ -1,0 +1,10 @@
+body {
+  margin: 0;
+  /* background: dodgerblue; */
+}
+
+#three-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
