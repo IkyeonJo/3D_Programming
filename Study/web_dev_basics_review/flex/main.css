@@ -1,0 +1,19 @@
+.container {
+  height: 200px;
+  border: 4px solid black;
+  display: flex;
+  justify-content: start; /* 수평정렬*/
+  align-items: center; /* 수직 정렬 */
+  gap: 10px;
+}
+
+.container .item {
+  width: 100px;
+  height: 100px;
+  background-color: royalblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 30px;
+}
