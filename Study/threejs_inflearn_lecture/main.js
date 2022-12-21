@@ -34,7 +34,8 @@
 // import example from './10_Physics_Engine/generating_world';
 // import example from './10_Physics_Engine/making_physics_object';
 // import example from './10_Physics_Engine/force';
-import example from './10_Physics_Engine/embedding_sound';
+// import example from './10_Physics_Engine/embedding_sound';
+import example from './11_Particle/src/particles_with_various_colors';
 
 example();
 
