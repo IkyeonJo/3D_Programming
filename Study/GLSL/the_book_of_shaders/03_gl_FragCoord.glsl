@@ -12,6 +12,8 @@ void main() {
   // - 픽셀(=fragment)의 좌표: 좌하단이 (0,0)
   // - (uniform이 아닌) varing
   vec2 st = gl_FragCoord.xy / u_resolution; // 각 픽셀의 좌표값을 해상도로 나누어 줌으로써, 0~1 사이 값으로 normalize
-  // gl_FragColor = vec4(st.x, st.y, 0., 1.);
-  gl_FragColor = vec4(0., st.y, st.x, 1.);
+  // 예: 화면 해상도가 (500,500)이라면 화면 중앙의 st 값은
+  // vec2(250./500., 250./500.) 즉 vec2(0.5, 0.5) = vec2(0.5)가 될 것임
+  gl_FragColor = vec4(st.x, st.y, 0., 1.); // st.x와 st.y는 0~1 사이의 값을 갖는다.
+  // gl_FragColor = vec4(0., st.y, st.x, 1.);
 }
