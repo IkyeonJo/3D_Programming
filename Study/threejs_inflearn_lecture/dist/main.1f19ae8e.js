@@ -36847,9 +36847,7 @@ var MapControls = /*#__PURE__*/function (_OrbitControls) {
   return _createClass(MapControls);
 }(OrbitControls);
 exports.MapControls = MapControls;
-},{"three":"node_modules/three/build/three.module.js"}],"11_Particle/src/images/star.png":[function(require,module,exports) {
-module.exports = "/star.1ea5bd8d.png";
-},{}],"11_Particle/src/particles_with_various_colors.js":[function(require,module,exports) {
+},{"three":"node_modules/three/build/three.module.js"}],"11_Particle/src/05_generating_mesh_at_point_coordinates.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36858,13 +36856,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = example;
 var THREE = _interopRequireWildcard(require("three"));
 var _OrbitControls = require("three/examples/jsm/controls/OrbitControls");
-var _star = _interopRequireDefault(require("./images/star.png"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-// 이미지 임포트
-
-// ----- 주제: 여러 가지 색상의 파티클
+// ----- 주제: 포인트 좌표에 메쉬 생성하기
 
 function example() {
   // Renderer
@@ -36897,38 +36891,27 @@ function example() {
   var controls = new _OrbitControls.OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
 
-  // BufferGeometry: 형태가 없는 지오메트리. vertex 정보 설정을 통해 지오메트리를 만드는 개념.
-  var geometry = new THREE.BufferGeometry(1, 32, 32);
-  var count = 1000;
-  var positions = new Float32Array(count * 3); // 3은 점 하나가 (x,y,z) 3개의 좌표를 갖고 있기 때문
-  // 색상 배열 추가
-  var colors = new Float32Array(count * 3); // 3은 점 하나가 (x,y,z) 3개의 좌표를 갖고 있기 때문
+  // Mesh
+  var planeMesh = new THREE.Mesh(new THREE.PlaneGeometry(0.3, 0.3), new THREE.MeshBasicMaterial({
+    color: 'red',
+    side: THREE.DoubleSide
+  }));
 
-  for (var i = 0; i < positions.length; i++) {
-    positions[i] = (Math.random() - 0.5) * 10;
-    // 색상 관련 추가
-    colors[i] = Math.random();
+  // Points
+  var sphereGeometry = new THREE.SphereGeometry(1, 8, 8);
+  // console.log(sphereGeometry);
+  var positionArray = sphereGeometry.attributes.position.array;
+  // console.log(positionArray)
+
+  // 여러 개의 Plane Mesh 생성
+  var plane;
+  for (var i; i < positionArray.length; i += 3) {
+    plane = planeMesh.clone();
+    plane.position.x = positionArray[i];
+    plane.position.y = positionArray[i + 1];
+    plane.position.z = positionArray[i + 2];
+    scene.add(plane);
   }
-  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  // 색상 속성 추가
-  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-  // console.log(geometry);
-
-  // texture
-  var textureLoader = new THREE.TextureLoader();
-  var particleTexture = textureLoader.load(_star.default);
-  var material = new THREE.PointsMaterial({
-    size: 0.1,
-    map: particleTexture,
-    // 파티클 이미지를 투명하게 세팅
-    transparent: true,
-    alphaMap: particleTexture,
-    depthWrite: false,
-    // 색상
-    vertexColors: true
-  });
-  var particles = new THREE.Points(geometry, material);
-  scene.add(particles);
 
   // 그리기
   var clock = new THREE.Clock();
@@ -36949,10 +36932,10 @@ function example() {
   window.addEventListener('resize', setSize);
   draw();
 }
-},{"three":"node_modules/three/build/three.module.js","three/examples/jsm/controls/OrbitControls":"node_modules/three/examples/jsm/controls/OrbitControls.js","./images/star.png":"11_Particle/src/images/star.png"}],"main.js":[function(require,module,exports) {
+},{"three":"node_modules/three/build/three.module.js","three/examples/jsm/controls/OrbitControls":"node_modules/three/examples/jsm/controls/OrbitControls.js"}],"main.js":[function(require,module,exports) {
 "use strict";
 
-var _particles_with_various_colors = _interopRequireDefault(require("./11_Particle/src/particles_with_various_colors"));
+var _generating_mesh_at_point_coordinates = _interopRequireDefault(require("./11_Particle/src/05_generating_mesh_at_point_coordinates"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 // import example from './ex1';
 // import example from './ex02';
@@ -36991,9 +36974,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // import example from './10_Physics_Engine/making_physics_object';
 // import example from './10_Physics_Engine/force';
 // import example from './10_Physics_Engine/embedding_sound';
+// import example from './11_Particle/src/01_basic_geometry_particle';
+// import example from './11_Particle/src/02_random_particle';
+// import example from './11_Particle/src/03_particle_images';
 
-(0, _particles_with_various_colors.default)();
-},{"./11_Particle/src/particles_with_various_colors":"11_Particle/src/particles_with_various_colors.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+(0, _generating_mesh_at_point_coordinates.default)();
+},{"./11_Particle/src/05_generating_mesh_at_point_coordinates":"11_Particle/src/05_generating_mesh_at_point_coordinates.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -37018,7 +37004,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56358" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50262" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
