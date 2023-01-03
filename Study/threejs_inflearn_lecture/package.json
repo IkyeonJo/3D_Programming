@@ -16,7 +16,8 @@
   "dependencies": {
     "cannon-es": "^0.20.0",
     "dat.gui": "^0.7.9",
-    "gsap": "^3.11.3",
+    "gsap": "^3.11.4",
+    "gsap-trial": "^3.11.4",
     "stats.js": "^0.17.0",
     "three": "^0.146.0"
   }

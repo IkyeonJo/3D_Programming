@@ -51,18 +51,20 @@ export default function example() {
 	
   // Points
   const sphereGeometry = new THREE.SphereGeometry(1,8,8);
-  // console.log(sphereGeometry);
+  console.log(sphereGeometry);
   const positionArray = sphereGeometry.attributes.position.array;
-  // console.log(positionArray)
+  console.log(positionArray)
 
   // 여러 개의 Plane Mesh 생성
   let plane;
   
-  for(let i; i < positionArray.length; i += 3) {
+  for(let i=0; i < positionArray.length; i += 3) {
     plane = planeMesh.clone();
     plane.position.x = positionArray[i];
     plane.position.y = positionArray[i+1];
     plane.position.z = positionArray[i+2];
+
+		plane.lookAt(0,0,0);
 
     scene.add(plane);
   }
