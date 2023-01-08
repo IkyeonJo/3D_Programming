@@ -9,7 +9,7 @@ uniform vec2 u_mouse;
 uniform float u_time;
 
 void main() {
-  vec2 st = gl_FragCoord.xy / u_resolution;
+  vec2 st = gl_FragCoord.xy / u_resolution.xy ;
   st.x *= u_resolution.x / u_resolution.y;
   // example1: Making yellow
   // vec3 color = vec3(0., 0., 0.);
@@ -31,10 +31,22 @@ void main() {
   // // magenta = yellow.bgr;
   // gl_FragColor = vec4(magenta, 1.);
 
-  // examplee: making green
-  vec3 yellow, magenta, green ;
-  yellow.rg = vec2(1.0); // vec3(1.0, 1.0, 0.0)
-  green = yellow.bgb;
-  // green = yellow.brb; // 동일하게 green이 나옴
-  gl_FragColor = vec4(green, 1.);
+  // // examplee: making green
+  // vec3 yellow, magenta, green ;
+  // yellow.rg = vec2(1.0); // vec3(1.0, 1.0, 0.0)
+  // green = yellow.bgb;
+  // // green = yellow.brb; // 동일하게 green이 나옴
+  // gl_FragColor = vec4(green, 1.);
+  // vec3 color = vec3(0., 0., 0.);
+  // // color[0] = 0.4;
+  // // color[1] = 0.5;
+  // color.r = 0.4;
+  // color.g = 0.5;
+  // gl_FragColor = vec4(color, 1.0);
+
+  vec3 yellow, magenta, green;
+  yellow.rg = vec2(1.0);
+  magenta = yellow.ggg;
+
+  gl_FragColor = vec4(magenta, 1.);
 }

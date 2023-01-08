@@ -1,0 +1,17 @@
+* Create Sphere
+* Map a texture on Sphere
+* Sharpen rendering
+
+* Alter texture with shader for atmosphere effect
+  - Create  first vertex shader
+  - Install vite-plugin-string
+  - Create first fragment shader
+  - Add texture to fragment shader using uniforms
+  - Transfer vertexUV to fragment shader using varing
+  - Add shade of blue using vertexNormal
+
+* Add extended atmosphere with second shader
+* Add mouse movement interactions
+* Add background stars
+* Add HTML and CSS
+# Done

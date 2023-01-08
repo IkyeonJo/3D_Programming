@@ -1,18 +1,37 @@
-const itemEls = document.querySelectorAll('.item');
-const btnEl = document.querySelector('.btn');
-const colors = ['royalblue', 'orange', 'tomato'];
+// // this의 값은 함수를 호출한 방법에 의해 결정됨 
+// 화살표 함수에서의 this는 함수가 속해 있는 곳의 상위 this를 계승받는다.
+// const car = {
+//   name: 'kia',
+//   getName: function(){
+//     console.log("car getName", this)
+//   },
+// }
 
-btnEl.addEventListener('click', function(){
-  itemEls.forEach(function(item, index){
-  item.style.backgroundColor=colors[index];
-  item.style.color = 'white';
-  })
-  btnEl.innerHTML = '<span>클릭했어요!</span>';
-})
+// // car.getName();
 
-function hello(name) {
-  if (name.length > 5) {
-    return;
+// const globalCar = car.getName;
+// globalCar();
+
+// const car2 = {
+//   name: "hyundai",
+//   getName: car.getName,
+// }
+// car2.getName();
+// const bindGetname = car2.getName.bind(car);
+// bindGetname();
+
+// const btn = document.getElementById('button')
+// btn.addEventListener('click', car.getName.bind(car))
+
+const testCar = {
+  name: "benz",
+  getName: function() {
+    console.log("getname", this);
+    const innerFunc = () => {
+      console.log("innerFunc", this)
+    }
+    innerFunc();
   }
-  console.log(name)
-}
+};
+
+testCar.getName();

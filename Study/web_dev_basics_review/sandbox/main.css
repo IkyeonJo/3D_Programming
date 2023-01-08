@@ -1,9 +1,16 @@
-.container {
+html {
+  /* font-size: 10px; */
+}
+
+.parent {
   width: 300px;
-  height: 150px;
+  height: 200px;
   background-color: royalblue;
-  background-image: url("https://heropy.blog/css/images/logo.png");
-  background-size: 100px;
-  background-repeat: no-repeat;
-  background-position: center center;
+  font-size: 10px;
+}
+
+.child {
+  width: 50vw;
+  height: 10vh;
+  background-color: orange;
 }
